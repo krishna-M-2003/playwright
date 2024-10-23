@@ -1,0 +1,37 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://learn.microsoft.com/en-us/training/modules/build-with-playwright/3-set-up-playwright');
+  await page.getByRole('link', { name: 'Previous', exact: true }).click();
+  await page.getByRole('link', { name: 'Previous', exact: true }).click();
+  await page.getByRole('link', { name: 'Previous', exact: true }).click();
+  await page.goto('https://learn.microsoft.com/en-us/training/modules/build-with-playwright/2-introduction-to-playwright');
+  await page.getByRole('link', { name: 'Next' }).click();
+  await page.goto('https://learn.microsoft.com/en-us/training/modules/build-with-playwright/4-understand-test-configuration');
+  await page.getByRole('link', { name: 'Continue' }).click();
+  await page.goto('https://learn.microsoft.com/en-us/training/modules/build-with-playwright/6-get-started-using-vs-code');
+  await page.getByRole('link', { name: 'Next' }).click();
+  await page.getByRole('link', { name: 'https://demo.playwright.dev/' }).click();
+  await page.getByPlaceholder('What needs to be done?').fill('fsdfsdfdsf');
+  await page.getByPlaceholder('What needs to be done?').press('Enter');
+  await page.getByPlaceholder('What needs to be done?').fill('sdfs');
+  await page.getByPlaceholder('What needs to be done?').press('Enter');
+  await page.locator('div').filter({ hasText: /^sdfs$/ }).getByLabel('Toggle Todo').check();
+  await page.getByRole('link', { name: 'Active' }).click();await page.locator('[data-test-id="site-header-search-open"]').click();
+  await expect(page.locator('[data-test-id="site-header-search-autocomplete-input"]')).toBeEmpty();
+  await page.locator('[data-test-id="site-header-search-autocomplete-input"]').click();
+  await page.locator('[data-test-id="site-header-search-autocomplete-input"]').click();
+  await page.locator('[data-test-id="site-header-search-autocomplete-input"]').fill('sdsdsdd');
+  await page.locator('[data-test-id="site-header-search-autocomplete-input"]').press('Enter');
+  await page.locator('[data-test-id="site-header-search-close"]').click();
+  await page.getByRole('link', { name: 'Completed' }).click();
+  await expect(page.getByTestId('todo-title')).toContainText('sdfs');
+  await expect(page.getByPlaceholder('What needs to be done?')).toBeEmpty();
+  await page.getByRole('button', { name: 'Clear completed' }).click();
+  await page.goto('https://learn.microsoft.com/en-us/training/modules/build-with-playwright/7-create-test-specification-with-codegen');
+  await page.getByRole('link', { name: 'Build Your first end-to-end' }).click();
+  await page.locator('[data-test-id="header-link-faq-\\&-help"]').click();
+  await page.getByText('Support Frequently asked').click();
+  await page.goto('https://learn.microsoft.com/en-us/training/modules/build-with-playwright/');
+  await page.getByRole('link', { name: 'Start', exact: true }).click();
+});

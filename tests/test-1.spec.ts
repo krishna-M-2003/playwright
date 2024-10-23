@@ -1,0 +1,31 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://playwright.dev/');
+  await expect(page.locator('h1')).toContainText('Playwright enables reliable end-to-end testing for modern web apps.');
+  await page.getByRole('link', { name: 'Get started' }).click();
+  await expect(page.locator('h1')).toContainText('Installation');
+  await expect(page.locator('#introduction')).toContainText('Introduction');
+  await expect(page.getByLabel('Home page')).toBeVisible();
+  await page.getByRole('link', { name: 'How to install Playwright' }).click();
+  await page.locator('.tabs > li:nth-child(2)').first().click();
+  await page.locator('.tabs > li:nth-child(3)').first().click();
+  await page.getByText('tests', { exact: true }).click();
+  await page.getByRole('img', { name: 'HTML Report' }).click();
+  await page.locator('div:nth-child(26) > .tabs > li:nth-child(2)').click();
+  await page.locator('div:nth-child(26) > .tabs > li:nth-child(3)').click();
+  await page.locator('div').filter({ hasText: /^npx playwright test --uiyarn playwright test --uipnpm exec playwright test --ui$/ }).getByRole('button').click();
+  await page.locator('div').filter({ hasText: /^npx playwright --versionyarn playwright --versionpnpm exec playwright --version$/ }).getByRole('button').click();
+  await page.getByRole('link', { name: 'Write tests using web first' }).click();
+  await page.goto('https://playwright.dev/');
+  await page.getByRole('link', { name: 'Playwright logo Playwright' }).click();
+  await page.getByRole('link', { name: 'Docs' }).click();
+  await page.getByRole('link', { name: 'API', exact: true }).click();
+  await page.getByRole('button', { name: 'Node.js' }).click();
+  await page.getByRole('link', { name: '.NET' }).click();
+  const page1Promise = page.waitForEvent('popup');
+  await page.getByLabel('GitHub repository').click();
+  const page1 = await page1Promise;
+  await page1.getByRole('button', { name: 'Code' }).click();
+  await page1.getByText('Open with GitHub Desktop').click();
+});
